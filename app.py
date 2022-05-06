@@ -10,6 +10,10 @@ def load_image(img):
     im = Image.open(img)
     return im
 
+@st.cache
+def convert_df(df):
+    return df.to_csv().encode('utf-8')
+
 def detection_visage(img_path):
     cascade_path = "./cascades/haarcascade_frontalface_default.xml"
     # La couleur du carré qui entoure le visage détecté
@@ -58,6 +62,12 @@ def main():
                 img, tableau = detection_visage(image_file)
                 st.image(img, use_column_width=True)
                 st.dataframe(tableau)
+
+                csv = convert_df(tableau)
+
+                st.download_button("Press to Download", csv, "file.csv", "text/csv", key='download-csv')
+
+
 
             else:
                 original_image = load_image(image_file)
