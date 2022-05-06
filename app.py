@@ -1,7 +1,6 @@
 import streamlit as st 
 from PIL import Image
 from image_detect import detection_visage
-import cv2
 
 
 @st.cache
